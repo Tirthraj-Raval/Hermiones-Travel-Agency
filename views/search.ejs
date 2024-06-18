@@ -1,0 +1,28 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="destination" id="destination" style="margin-top: 100px;">
+    <div class="heading">
+       <h1 class="text">Search Results : <%=message%></h1>
+    </div>    
+    <div class="box-container">
+<% if (searchResults.length > 0) { %>
+        <%  searchResults.forEach(function(destination){ %>
+  
+              <div class="box" data-aos="fade-up" data-aos-delay="100">
+                  <div class="image">
+                      <img src="<%=destination.firstImg%>" alt="">
+                  </div>
+                  <div class="content">
+                      <h3><%=destination.title%></h3>
+                      <p><%=destination.firstPara%></p>
+                      <a href="/alldestinations/<%= destination._id %>">Read More <i class="fas fa-angle-right"></i></a>
+                  </div>
+              </div> 
+  
+       <%   });  %>
+      </div>
+      <% } %>
+
+</section>
+<%- include("partials/footer"); -%>      
+
