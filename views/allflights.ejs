@@ -1,0 +1,209 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="flights" id="flights">
+      <h3 data-aos="fade-up" data-aos-delay="150">Search Flights</h3>
+      <p data-aos="fade-up" data-aos-delay="300">Discover the Wizarding World with Us</p>
+</section> 
+
+<section class="login" id="login">
+  <div class="box-container">
+      <div class="box" data-aos="fade-up" data-aos-delay="150">
+          <h3>Book a flight</h3>
+
+          <form action="/allflights/search" method="post">
+          <div class="trip-type">
+              <span>Trip type</span>
+              <div class="trip-details">
+                  <div class="radio">
+                    <input type="radio" id="one-way" name="tripType" value="one-way">
+                    <label for="one-way">One Way Trip</label>
+                  </div>
+                  <div class="radio">
+                      <input type="radio" id="round-trip" name="tripType" value="round-trip">
+                    <label for="round-trip">Round trip</label>
+                  </div>
+              </div>    
+          </div>
+
+          <div class="place">
+              <div class="inputBox">
+                  <span>From</span>
+                  <select name="departure" id="from-select">
+                      <option value="" disabled selected>Select a state</option>
+                      <option value="Andhra Pradesh">Andhra Pradesh</option>
+                      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                      <option value="Assam">Assam</option>
+                      <option value="Bihar">Bihar</option>
+                      <option value="Chhattisgarh">Chhattisgarh</option>
+                      <option value="Goa">Goa</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Haryana">Haryana</option>
+                      <option value="Himachal Pradesh">Himachal Pradesh</option>
+                      <option value="Jharkhand">Jharkhand</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Kerala">Kerala</option>
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Maharashtra">Maharashtra</option>
+                      <option value="Manipur">Manipur</option>
+                      <option value="Meghalaya">Meghalaya</option>
+                      <option value="Mizoram">Mizoram</option>
+                      <option value="Nagaland">Nagaland</option>
+                      <option value="Odisha">Odisha</option>
+                      <option value="Punjab">Punjab</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                      <option value="Sikkim">Sikkim</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Tripura">Tripura</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="Uttarakhand">Uttarakhand</option>
+                      <option value="West Bengal">West Bengal</option>
+                  </select>
+              </div>
+
+              <div class="inputBox">
+                  <span>Where</span>
+                  <select name="arrival" id="from-select">
+                      <option value="" disabled selected>Select the place</option>
+                      <option value="Hogwarts Castle">Hogwarts Castle</option>
+                      <option value="Diagon Alley">Diagon Alley</option>
+                      <option value="Hogsmeade Village">Hogsmeade Village</option>
+                      <option value="The Forbidden Forest">The Forbidden Forest</option>
+                      <option value="Ministry of Magic">Ministry of Magic</option>
+                      <option value="Durmstrang Institute">Durmstrang Institute</option>
+                      <option value="Beauxbatons Academy of Magic">Beauxbatons Academy of Magic</option>
+                      <option value="Azkaban">Azkaban</option>
+                  </select>
+              </div>
+          </div>
+
+          <div class="place">
+              <div class="inputBox">
+                  <span>Departure</span>
+                  <input type="date" name="departureDate" value="" id="calendar">
+              </div>
+
+              <div class="inputBox11">
+                  <span>Return</span>
+                  <input type="date" name="returnDate" value="" id="calendar2">
+              </div>
+          </div>
+
+          <div class="place">
+              <div class="inputBox">
+                  <span>Children</span>
+                  <input type="number" placeholder="number of children" value="" name="children"  id="adults">
+              </div>
+
+              <div class="inputBox">
+                  <span>Adults(16+)</span>
+                  <input type="number" placeholder="number of adults" value="" name="adults"  id="adults">
+              </div>
+          </div>
+          <div class="place">
+              <div class="inputBox">
+                  <span>Class</span>
+                  <select name="from" id="from-select">
+                      <option value="" disabled selected>Select the Class</option>
+                      <option value="Economy Class">Economy Class</option>
+                      <option value="Business Class">Business Class</option>
+                      <option value="First Class">First Class</option>
+                  </select>
+              </div>
+
+              <div class="inputBox">
+                  <span>Fare</span>
+                  <select name="from" id="from-select">
+                      <option value="" disabled selected>Select Fare Type</option>
+                      <option value="Regular Fare">Regular Fare</option>
+                      <option value="Student Fare">Student Fare</option>
+                      <option value="Senior Citizen Fare">Senior Citizen Fare</option>
+                  </select>
+              </div>
+          </div>
+
+          <button type="submit" class="book-flight">Book Flight</button>
+          </form>
+  </section>
+
+<section class="container2">
+  <h1 style="font-size: 4rem; margin-bottom:30px;">All Scheduled Flights</h1>
+  </section>
+  <section class="scheduled-flights">
+    <% allFlights.forEach(function(flight) { %>
+      <div class="flight-card">
+        <h2><%= flight.departure %> to <%= flight.arrival %></h2>
+        <p>Flight Price: <span>$<%= flight.price %></span></p>
+        <% flight.schedule.forEach(function(schedule) { %>
+        <p>Available Seats: <%= schedule.availableSeats %></p>
+        <% }); %>
+        
+        <a href="/allflights/<%= flight._id %>">Read More <i class="fas fa-angle-right"></i></a>
+      </div>
+    <% }); %>
+</section>
+
+<div class="space" style="margin-top: 20rem;"></div>
+
+
+<script>
+    function setFormattedDateToInputs1() {
+      const today = new Date();
+      const year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      if (month < 10) {
+        month = '0' + month;
+      }
+      let day = today.getDate();
+      if (day < 10) {
+        day = '0' + day;
+      }
+      const formattedDate1 = `${year}-${month}-${day}`;
+    
+      document.getElementById("calendar").value = formattedDate1;
+      document.getElementById("calendar").min = formattedDate1;
+    
+      const nextDay = new Date(today);
+      nextDay.setDate(nextDay.getDate() + 1);
+
+      const nextYear = nextDay.getFullYear();
+      let nextMonth = nextDay.getMonth() + 1;
+      if (nextMonth < 10) {
+          nextMonth = '0' + nextMonth;
+      }
+      let nextDayOfMonth = nextDay.getDate();
+      if (nextDayOfMonth < 10) {
+          nextDayOfMonth = '0' + nextDayOfMonth;
+      }
+      const formattedNextDate2 = `${nextYear}-${nextMonth}-${nextDayOfMonth}`;
+
+      document.getElementById("calendar2").value = formattedNextDate2;
+      document.getElementById("calendar2").min = formattedNextDate2;
+    }
+    
+    setFormattedDateToInputs1();
+    const departureDateInput = document.getElementById("calendar");
+    const arrivalDateInput = document.getElementById("calendar2");
+    
+    departureDateInput.addEventListener("input", () => {
+      const departureDate = new Date(departureDateInput.value);
+      const nextDay = new Date(departureDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+    
+      const nextYear = nextDay.getFullYear();
+      let nextMonth = nextDay.getMonth() + 1;
+      if (nextMonth < 10) {
+        nextMonth = '0' + nextMonth;
+      }
+      let nextDayOfMonth = nextDay.getDate();
+      if (nextDayOfMonth < 10) {
+        nextDayOfMonth = '0' + nextDayOfMonth;
+      }
+      const formattedNextDate = `${nextYear}-${nextMonth}-${nextDayOfMonth}`;
+    
+      arrivalDateInput.min = formattedNextDate;
+    });
+
+</script>
+
+<%- include("partials/footer"); -%>
