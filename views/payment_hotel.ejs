@@ -1,0 +1,30 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="payment">
+    <div class="box-container">
+        <div class="box">
+            <h1>Hotel Booking Details</h1>
+            <p><strong>Name:</strong> <span><%= booking.customerName %></span></p>
+            <p><strong>Mobile:</strong> <span><%= booking.mobile %></span></p>
+            <p><strong>Email:</strong> <span><%= booking.email %></span></p>
+            <p><strong>Number of Members:</strong> <span><%= booking.numberOfMembers %></span></p>
+            <p><strong>Number of Rooms:</strong> <span><%= booking.occupiedRooms %></span></p>
+            <p><strong>Check-In Date:</strong> <span><%= booking.checkInDate %></span></p>
+            <p><strong>Check-Out Date:</strong> <span><%= booking.checkOutDate %></span></p>
+            <p><strong>Hotel Name:</strong> <span><%= booking.hotelName %></span></p>
+            <p><strong>Location:</strong> <span><%= booking.location %></span></p>
+            <p><strong>Rating:</strong> <span><%= booking.rating %></span></p>
+            <p><strong>Price Per Night:</strong> <span><%= booking.pricePerNight %></span></p>
+            <p><strong>Total Available Rooms:</strong> <span><%= booking.availableRooms %></span></p>
+          
+            <form action="/allhotels/<%= hotelId %>/bookhotel/paypal" method="post">
+              <!-- PayPal Integration -->
+              <input type="hidden" name="paymentMethod" value="paypal">
+              <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+            </form>
+        </div>
+    </div>
+</section>  
+
+
+<%- include("partials/footer"); -%>
