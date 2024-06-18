@@ -1,0 +1,32 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="hotel" id="hotel" style="margin-top: 120px;">
+    <div class="heading">
+        <span>Our Hotels</span>
+        <h1 class="text">Search Results : <%=message%></h1>
+    </div>
+    <% if (searchResults.length > 0) { %>
+    <div class="box-container">
+        <% let animationTime = 100; %>
+        <% searchResults.forEach(function(hotel, index){ %>
+          <div class="box" data-aos="fade-up" data-aos-delay="<%= animationTime %>">
+            <div class="image">
+              <img src="<%= hotel.firstImg %>" alt="">
+              <h3 style="font-size: 2rem; color : white;"><i class="fas fa-map-marker-alt"></i><%= hotel.name %></h3>
+            </div>
+            <div class="content" style="font-size: 2rem; color : white;">
+              <div class="price">₹ <%=hotel.pricePerNight%> <span>1499</span></div>   
+              <p><%= hotel.firstPara %></p>
+              <a href="/allhotels/<%= hotel._id %>">Read More <i class="fas fa-angle-right"></i></a>
+            </div>
+          </div> 
+          <% animationTime += 100; %>
+          <% if (index === searchResults.length - 1) { %>
+            <% animationTime = 100; %>
+          <% } %>
+        <% }); %>
+      </div>
+      <% } %>
+</section>
+
+<%- include("partials/footer"); -%>
