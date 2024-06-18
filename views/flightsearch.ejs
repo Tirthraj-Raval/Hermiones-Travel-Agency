@@ -1,0 +1,39 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="flight-search">
+  <h1 style="font-size: 4rem; margin-bottom:30px;">Available Flights for your search</h1>
+  
+  <h2>Departure Flights</h2>
+  <section class="scheduled-flights">
+    <% departureToArrivalFlights.forEach(function(flight) { %>
+    <div class="flight-card">
+      <h2><%= flight.departure %> to <%= flight.arrival %></h2>
+      <p>Flight Price: <span><%= flight.price %></span></p>
+      <% flight.schedule.forEach(function(schedule) { %>
+      <p>Available Seats: <%= schedule.availableSeats %></p>
+      <% }); %>
+      <a href="/allflights/<%= flight._id %>">Read More <i class="fas fa-angle-right"></i></a>
+    </div>
+    <% }); %>
+  </section>
+  
+  <% if(returnFlights && returnFlights.length>0){ %>
+    <h2>Return Flights</h2>
+  <% } %>
+  
+  <section class="scheduled-flights">
+    <% returnFlights.forEach(function(flight) { %>
+    <div class="flight-card">
+      <h2><%= flight.departure %> to <%= flight.arrival %></h2>
+      <% flight.schedule.forEach(function(schedule) { %>
+      <p>Available Seats: <%= schedule.availableSeats %></p>
+      <% }); %>
+      <a href="/allflights/<%= flight._id %>">Read More <i class="fas fa-angle-right"></i></a>
+    </div>
+    <% }); %>
+  </section>
+
+
+</section>
+
+<%- include("partials/footer"); -%>
