@@ -1,0 +1,237 @@
+<%- include("partials/header", {isHotelPage : false}); %>
+
+<section class="tp" style="margin-top: 120px;">
+    <h1>Welcome, <%= user.name %>!</h1>
+</section>
+
+
+  
+  <% if (user.bookedFlights && user.bookedFlights.length > 0) { %>
+    <section class="tickett">
+        <h2 style="color: white; font-size : 30px; text-align : center;">My Booked Flights</h2>
+        <% user.bookedFlights.forEach((flight, index) => { %>
+          <% const destination = flight.arrival; %>
+          <% const finalDestination = destinations.find(dest => dest.title === destination); %>
+          <% if (finalDestination) { %>
+            <h3 style="color: white; font-size : 20px;">Trip <%= index + 1 %></h3>
+
+  
+            <div class="ticket">
+            <div id="barBig">
+                <!-- <img src="https://www.incimages.com/uploaded_files/image/1024x576/*Barcode_32896.jpg" alt="Bar Code"> -->
+            </div>
+            <div class="mainInfo" id="mainInfo">
+                <div class="passenger-info-container">
+                    <div class="passenger-info">
+                        <span>Name of Passenger</span>
+                        <span class="details"><%= flight.name %></span>
+                    </div>
+                    <div class="passenger-info">
+                        <span>Flight</span>
+                        <span class="details">FL006</span>
+                    </div>
+                    <div class="passenger-info">
+                        <span>Date</span>
+                        <span class="details"><%= flight.departureDate %></span>
+                    </div>
+                    <div class="passenger-info">
+                        <span>Seat</span>
+                        <span class="details">8C</span>
+                    </div>
+                </div>
+                <h1 class="destination1">
+                    <%= flight.departure %>
+                    <img src="https://i.pinimg.com/originals/e9/0a/29/e90a299a041b7d37cdafc6eb2905e9d6.png" alt="Destination">
+                    <%= flight.arrival %>
+                </h1>
+                <div class="flight-info-container">
+                    <div class="flight-info">
+                        <span>Gate</span>
+                        <span>D 12</span>
+                    </div>
+                    <div class="flight-info">
+                        <span>Boarding Time</span>
+                        <span>7:30 AM IST</span>
+                    </div>
+                    <div class="flight-info">
+                        <span>ETD</span>
+                        <span>8:30 AM IST</span>
+                    </div>
+                    <div class="flight-info">
+                        <span>ETA</span>
+                        <span>10:15 AM IST</span>
+                    </div>
+                </div>
+                <p class="note">Gate closes 20 minutes before departure</p>
+            </div>
+            <div id="circles">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div id="sideInfo">
+                <img src="https://www.incimages.com/uploaded_files/image/1024x576/*Barcode_32896.jpg" alt="Small Bar" id="barSmall">
+                <div class="details-container">
+                    <div class="flight-details">
+                        <div>
+                            <span>Name of Passenger</span>
+                            <span><%= flight.name %></span>
+                        </div>
+                        <div>
+                            <span>Flight</span>
+                            <span>FL006</span>
+                        </div>
+                        <div>
+                            <span>Date</span>
+                            <span>23/7/2023</span>
+                        </div>
+                        <div>
+                            <span>Seat</span>
+                            <span>8C</span>
+                        </div>
+                    </div>
+                    <div class="destination-details">
+                        <%= flight.arrival %>
+                        <img src="https://i.pinimg.com/originals/e9/0a/29/e90a299a041b7d37cdafc6eb2905e9d6.png" alt="Destination">
+                        <%= flight.departure %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    <% }); %>
+    </section>
+<% } %>
+
+  <% if (user.bookedHotels && user.bookedHotels.length > 0) { %>
+    <section class="my-schedule">
+      <h2 style="color: white; font-size : 20px; text-align : center;">My Booked Hotels</h2>
+      <% user.bookedHotels.forEach((hotel, index) => { %>
+        <% const foundHotel = hotels.find(h => h._id.toString() === hotel.hotel.toString()); %>
+        <% if (foundHotel) { %>
+          <div class="box">
+            <h3 style="color: white; font-size : 20px;">Trip <%= index + 1 %></h3>
+            <h3 style="color: white; font-size : 20px;"><%= hotel.hotelName %></h3>
+            <div class="box-container1">
+              <div class="box1" data-aos="fade-up" data-aos-delay="100">
+                <div class="image">
+                  <!-- Add hotel image if available -->
+                  <img src="<%= foundHotel.firstImg %>" alt="">
+                  <h3><i class="fas fa-map-marker-alt"></i><%= foundHotel.location %></h3>
+                </div>
+                <div class="content">
+                  <div class="price">₹ <%= foundHotel.pricePerNight %> <span><%= foundHotel.pricePerNight %></span></div>
+                  <!-- Add hotel description if available -->
+                  <p><%= foundHotel.firstPara %></p>
+                  <a href="/allhotels/<%= hotel.hotel %>">Read More <i class="fas fa-angle-right"></i></a>
+                </div>
+              </div>
+              <section class="book-form" id="book-form">
+                <form action="">
+                  <div data-aos="zoom-in" data-aos-delay="150" class="inputBox">
+                    <span>Check-in Date :</span>
+                    <input type="text" value="<%= hotel.checkInDate %>">
+                  </div>
+                  <div data-aos="zoom-in" data-aos-delay="300" class="inputBox">
+                    <span>Check-out Date :</span>
+                    <input type="text" value="<%= hotel.checkOutDate %>">
+                  </div>
+                  <div data-aos="zoom-in" data-aos-delay="450" class="inputBox">
+                    <span>Number of Members :</span>
+                    <input type="text" value="<%= hotel.numberOfMembers %>">
+                  </div>
+                  <div data-aos="zoom-in" data-aos-delay="600" class="inputBox">
+                    <span>Number of Rooms :</span>
+                    <input type="text" value="<%= hotel.occupiedRooms %>">
+                  </div>
+                </form>
+              </section>
+            </div>
+          </div>
+        <% } %>
+      <% }); %>
+    </section>
+  <% } %>
+
+  <% if (!user.bookedFlights.length && !user.bookedHotels.length) { %>
+    <p>No trips booked yet. Start booking your flights and hotels now!</p>
+  <% } %>
+
+
+<%- include("partials/footer"); %>
+
+
+<script>
+    const daysTag = document.querySelector(".days"),
+  currentDate = document.querySelector(".current-date"),
+  prevNextIcon = document.querySelectorAll(".icons span");
+  
+  // getting new date, current year and month
+  let date = new Date(),
+  currYear = date.getFullYear(),
+  currMonth = date.getMonth();
+  
+  // storing full name of all months in array
+  const months = ["January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"];
+  
+  const renderCalendar = () => {
+      let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+      lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+      lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+      lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+      let liTag = "";
+  
+      for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+          liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+      }
+  
+      for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+          // adding active class to li if the current day, month, and year matched
+          let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
+                       && currYear === new Date().getFullYear() ? "active" : "";
+          liTag += `<li class="${isToday}">${i}</li>`;
+      }
+  
+      for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+          liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+      }
+      currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+      daysTag.innerHTML = liTag;
+  }
+  renderCalendar();
+  
+  prevNextIcon.forEach(icon => { // getting prev and next icons
+      icon.addEventListener("click", () => { // adding click event on both icons
+          // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+          currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+  
+          if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+              // creating a new date of current year & month and pass it as date value
+              date = new Date(currYear, currMonth, new Date().getDate());
+              currYear = date.getFullYear(); // updating current year with new date year
+              currMonth = date.getMonth(); // updating current month with new date month
+          } else {
+              date = new Date(); // pass the current date as date value
+          }
+          renderCalendar(); // calling renderCalendar function
+      });
+  });  
+  </script>
