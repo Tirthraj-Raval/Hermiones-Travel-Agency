@@ -1,0 +1,57 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="container3">
+  <div class="box-container">
+    <div class="box">
+      <h1>Details of the Flight</h1>
+      <h2>Flight from <span><%= flight.departure %></span> to <span><%= flight.arrival %></span></h2>
+      <% flight.schedule.forEach(function(schedule) { %>
+        <div class="tp">
+          <p>Departure Date: <span><%= schedule.departureDate.toDateString() %></span></p>
+          <p>Departure Time: <span><%= schedule.departureTime %></span></p>
+          <p>Arrival Date: <span><%= schedule.arrivalDate.toDateString() %></span></p>
+          <p>Arrival Time: <span><%= schedule.arrivalTime %></span></p>
+          <p>Available Seats: <span><%= schedule.availableSeats %></span></p>
+          <p>Flight Price: <span>$<%= flight.price %></span></p>
+          <p>Flight ID : <span><%= flight.flightID %></span></p>
+        </div>
+        <div class="tp">
+          <% if(!user) { %>
+            <a href="/login" class="btn btn-primary">Book Now</a>
+          <% } %>
+          <% if (user && user.role === 'user' && !user.bookedFlights.some(booking => booking.flight.toString() === flight._id.toString() && booking.departureDate.toString() === schedule.departureDate.toString())) { %>
+            <form action="/allflights/<%= flight._id %>/bookflight" method="get">
+              <input type="hidden" name="scheduleId" value="<%= schedule._id %>">
+              <button type="submit" class="btn btn-primary">Book Now</button>
+            </form>
+          <% } %>
+        </div>
+          <% if (user && user.role === 'user' && user.bookedFlights.some(booking => booking.flight.toString() === flight._id.toString() && booking.departureDate.toString() === schedule.departureDate.toString())) { %>
+            <% user.bookedFlights.forEach(function(bookedFlight){ %>
+              <% if (bookedFlight.flight.toString() === flight._id.toString() && bookedFlight.departureDate.toString() === schedule.departureDate.toString()) { %>
+                <div class="admin-buttons2">
+                <a href="/allflights/<%= flight._id %>/download-ticket/<%= bookedFlight._id %>" download class="btn btn-primary" id="download-ticket">Download Ticket</a>
+                <form action="/allflights/<%= flight._id %>/cancelbooking/<%=bookedFlight._id%>" method="POST" onsubmit="return confirm('Are you sure you want to cancel this flight?');">
+                  <input type="hidden" name="scheduleId" value="<%= schedule._id %>">
+                  <button type="submit" class="btn btn-danger">Cancel Flight</button>
+                </form>
+              </div>
+              <% } %>
+            <% }); %>
+          <% } %>
+        <a href="/allflights"><i class="fas fa-angle-left"></i>Back to All Flights</a>     
+      <% }); %>
+
+      <% if (user && user.role === 'admin') { %>
+        <div class="admin-buttons">
+          <a href="/allflights/<%= flight._id %>/edit" class="btn btn-primary">Edit Flight</a>
+          <form action="/allflights/<%= flight._id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            <button type="submit" class="btn btn-danger">Cancel Flight</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </div>  
+</section>
+
+<%- include("partials/footer"); -%>
