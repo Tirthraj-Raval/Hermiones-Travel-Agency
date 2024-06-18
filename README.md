@@ -46,7 +46,16 @@ Unlock exclusive perks and magical surprises with our subscription plans. Choose
 
 Read glowing reviews from fellow travelers who have experienced the magic firsthand. Get insights and recommendations for an extraordinary journey.
 
-### 8. Contact Us
+### 8. Auto =matic ticket generation and mailing system.
+
+Whenever a user has booked a flight or hotel then he needs to make the payment through paypal payment gateway and then a ticket is generated for their booking which is downloadable and also automatic emailed to the user's email address.
+
+### 9. User Proifle Section
+
+After a user has made a booking through our website then it can be seen in the user profile section. Profile section also has all the past bookings made through our website
+
+
+###  Contact Us
 
 - For any inquiries or assistance, reach out to us at ``tirthrajraval1604@gmail.com `` or ``enderwither1234@gmail.com``
 - May your travels be filled with wonder and enchantment! ✨🧙‍♂️🔮
@@ -59,3 +68,9 @@ Read glowing reviews from fellow travelers who have experienced the magic firsth
    ```bash
    git clone https://github.com/Tirthraj-Raval/Hermiones-Travel-Agency.git
    cd Hermiones-Travel-Agency
+   ```
+
+## License
+
+This repository is licensed strictly under All Rights Reserved. You may not copy, modify, distribute, or use any part of this repository without explicit permission from the owner.
+
