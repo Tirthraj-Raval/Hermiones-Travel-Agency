@@ -1,0 +1,789 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+
+<section class="parallax">
+    <div class="images">
+        <img src="../images/BackDrop-PhotoRoom-PhotoRoom.png" id="background" alt="">
+        <div class="tp">
+            <% if(user && user.role === "user") { %>
+                <% if(user.googleId) { %>
+                  <span id="text1" style="font-family:'Harry Potter Regular';font-weight:normal;" data-aos="fade-up" data-aos-delay="300">Welcome, <%= user.googleDisplayName %></span>
+                <% } else { %>
+                  <span id="text1" data-aos="fade-up" data-aos-delay="300">Welcome, <%= user.name %></span>
+                  <% } %>
+                <p id="text2" data-aos="fade-up" data-aos-delay="400" style="display: block;">Enter the realm of enchantment and seek wisdom in our magical conversation.</p>
+              <% } else if(user && user.role === "admin") { %>
+                <span id="text1" data-aos="fade-up" data-aos-delay="300">Welcome, Admin</span>
+                <p id="text2" data-aos="fade-up" data-aos-delay="400">Enter the realm of enchantment and seek wisdom in our magical conversation.</p>
+              <% } else { %>
+                <span id="text1" data-aos="fade-up" data-aos-delay="100">Follow Us</span>
+                <h3 id="text2" data-aos="fade-up" data-aos-delay="200">To The Unknown</h3>
+              <% } %>    
+        </div> 
+        <img src="../images/WizardFront.png" id="Wizard" alt="">
+        <img src="../images/Right.png" id="Right" alt="">
+        <img src="../images/Left.png" id="Left" alt="">   
+    </div>
+</section>
+
+<section class="fl-hotel">
+    <div class="icons3">
+        <input data-aos="zoom-in" data-aos-delay="100" type="submit" value="flights" class="btnn">
+        <!-- <input data-aos="zoom-in" data-aos-delay="200" type="submit" value="hotels" class="btnn2"> -->
+        <form action="/allflights/home/search" method="post">
+        <div class="links">
+            <p  data-aos="fade-up" data-aos-delay="100" id="link1" name="tripType" value="one-way">One Way</p>
+            <p  data-aos="fade-up" data-aos-delay="200" id="link2" name="tripType" value="round-trip">Round Trip</p>     
+        </div>
+    </div>
+
+    <div class="details2">
+        <div class="from1"  data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+                <span>From :</span>
+                <div id="plane1" class="fas fa-plane-departure"></div><br>
+            <select  name="departure" id="from-select" required>
+                <option value="" disabled selected>Select a state</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+            </select>
+            </div>
+        </div>
+        <div class="where1"  data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+                <span>Where :</span>
+                <div id="plane1" class="fas fa-plane-arrival"></div><br>
+                <select  name="arrival" id="from-select" required>
+                    <option value="" disabled selected>Select the place</option>
+                    <% destinations.forEach(function(destination){ %>
+                    <option value="Hogwarts Castle"><%- destination.title %></option>
+                    <% }); %>
+                </select>
+            </div>
+        </div>
+        <div class="journey-date"  data-aos="fade-up" data-aos-delay="300">
+            <div class="box">
+                <div class="journey">
+                    <span>Journey Date</span><br>
+                    <input type="date" id="date1" name="departureDate" value="" required>    
+                </div>
+                <div class="return">
+                    <span>Return Date</span><br>
+                    <input type="date" id="date2" name="returnDate" value="">    
+                </div>
+            </div>
+        </div>
+        <div class="passengers"  data-aos="fade-up" data-aos-delay="400">
+            <div class="box">
+                <span>Passengers, Class</span><br>
+                <p id="click" name="adults">1</p>
+                <input id="inputAdults" type="" name="adults" value="click" hidden>
+                <span class="selectedOption">Business</span>
+            </div>
+        </div>
+    </div>
+    <div class="content1" style="text-align: center; align-items: center; margin-top: 2rem;">
+        <!-- <a href="" class="btn">Search</a> -->
+        <input data-aos="fade-up" data-aos-delay="600" type="submit" value="Search Flights" class="btn">
+    </div>
+    </form>
+</section>
+
+<div class="dropdown1" id="dropdownMenu" style="padding: 1rem;">
+    <div class="box">
+        <h3 id="huge">Passengers</h3>
+    </div>
+    <div class="flex-container">
+      <p id="adultCount">1</p>
+      <span>Adult</span>
+      <div class="plus-minus" style="margin-top: 1.5rem;">
+        <div class="fa fa-plus" id="adultPlus"></div>
+        <div class="fa fa-minus" id="adultMinus"></div>
+      </div>
+    </div>
+    <div class="flex-container2">
+      <p id="childrenCount">0</p>
+      <span>Children</span>
+      <div class="plus-minus" style="margin-top: 1.5rem;">
+        <div class="fa fa-plus" id="childrenPlus"></div>
+        <div class="fa fa-minus" id="childrenMinus"></div>
+      </div>
+    </div>
+    <div class="box" style="margin-top: 1.3rem;margin-bottom: 1rem;">
+        <h3 id="huge">Cabin Class</h3>
+    </div>
+    <div class="cabinClass">
+        <p class="cabinOption cabinOption1">Economy</p>
+        <p class="cabinOption cabinOption2 selected">Business</p>
+        <p class="cabinOption cabinOption3">First Class</p>
+    </div>    
+  </div>
+
+  <% if(user && user.role === "admin") { %>
+
+    <section class="container2">
+      <h1 style="font-size: 4rem; margin-bottom:30px;margin-top: 3rem;">Dashboard</h1>
+      </section>
+
+    <section class="scheduled-flights">
+        <div class="flight-card1">
+          <div class="info" style="margin: 1rem;">
+            <p style="font-size: 1.6rem;">Total Flight Revenue: </p>
+            <h2 style="margin-top: 1rem;">$<%= totalFlightRevenue %></h2>
+          </div>
+          <div class="next-line" style="margin-top: 1.5rem;">
+            <img src="../images/arrow-1.png" alt="">  
+          </div>
+        </div>
+
+        <div class="flight-card1">
+          <div class="info" style="margin: 1rem;">
+            <p style="font-size: 1.6rem;">Net Flight Profit: </p>
+            <h2 style="margin-top: 1rem;">$<%= totalFlightProfit %></h2>
+          </div>
+          <div class="next-line" style="margin-top: 1.5rem;">
+            <img src="../images/arrow-2.png" alt="">  
+          </div>
+        </div>
+
+        <div class="flight-card1">
+          <div class="info" style="margin: 1rem;">
+            <p style="font-size: 1.6rem;">Total Hotel Revenue: </p>
+            <h2 style="margin-top: 1rem;">$<%= totalHotelRevenue %></h2>
+          </div>
+          <div class="next-line" style="margin-top: 1.5rem;">
+            <img src="../images/arrow-3.png" alt="">  
+          </div>
+        </div>
+
+        <div class="flight-card1">
+          <div class="info" style="margin: 1rem;">
+            <p style="font-size: 1.6rem;">Net Hotel Profit: </p>   
+            <h2 style="margin-top: 1rem;">$<%= totalHotelProfit %></h2>   
+          </div>
+          <div class="next-line" style="margin-top: 1.5rem;">
+            <img src="../images/arrow-4.png" alt="">  
+          </div>
+        </div>
+
+
+   </section>
+  
+<% } %>
+  
+  
+<% if(user && user.role==="user" && user.bookedFlights && user.bookedFlights.length > 0 && destination !== null && user.bookedFlights[0].arrival){ %>
+    <section class="tp">
+        <h1>My Schedule</h1>
+    </section>
+    
+    <section class="my-schedule" style="margin-top: 5rem;">
+        <% bookedFlight = user.bookedFlights[0] %>
+        <div class="box-container">
+            <div class="box">
+                <h3>Trip 1</h3>
+                <h3><%= bookedFlight.name %></h3>
+                <div class="box-container1">
+                    <div class="box1" data-aos="fade-up" data-aos-delay="100">
+                        <div class="image">
+                            <img src="<%= destination.firstImg %>" alt="">
+                            <h3><i class="fas fa-map-marker-alt"></i><%= destination.title %></h3>
+                        </div>
+                        <div class="content">
+                            <!-- <div class="price">$ 999 <span>1499</span></div> -->
+                            <p style="margin-top: -2rem;"><%= destination.firstPara %></p>
+                            <a href="/alldestinations/<%= destination._id %>">Read More <i class="fas fa-angle-right"></i></a>
+                        </div>
+                </div> 
+            <section class="book-form" id="book-form">
+                <form action="">
+                    <div data-aos="zoom-in" data-aos-delay="150" class="inputBox">
+                    <span>From :</span>
+                        <input type="text" value="<%= bookedFlight.departure %>">
+                    </div>
+                    <div data-aos="zoom-in" data-aos-delay="300" class="inputBox">
+                        <span>To :</span>
+                        <input type="text" value="<%= bookedFlight.arrival %>">
+                    </div>
+                    <div data-aos="zoom-in" data-aos-delay="450" class="inputBox">
+                        <span>Departure Date :</span>
+                        <input type="text"  value="<%= bookedFlight.departureDate %>">
+                    </div>
+                </form>
+         </section>
+         <section class="tp2">
+            <div class="wrapper">
+                <header>
+                  <p class="current-date"></p>
+                  <div class="icons">
+                    <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                    <span id="next" class="material-symbols-rounded">chevron_right</span>
+                  </div>
+                </header>
+                <div class="calendar">
+                  <ul class="weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                  </ul>
+                  <ul class="days"></ul>
+                </div>
+              </div>
+        </section>
+    
+    </section>
+    
+    <section class="more-destinations" data-aos="zoom-in-up" data-aos-delay="150">
+        <a href="/userprofile">More Trips  <i class="fas fa-angle-right"></i></a>
+    </section>
+    <% } %>
+
+
+
+<section class="about" id="about">
+    <div class="video-container" data-aos="fade-right" data-aos-delay="100" id="videoContainer">
+        <video id="videoPlayer" muted autoplay class="video">
+            <source src="/videos/video1.mp4" type="video/mp4">
+            <source src="/videos/video2.mp4" type="video/mp4">
+            <source src="/videos/video3.mp4" type="video/mp4">
+          </video>
+    </div>
+
+    <div class="content" data-aos="fade-left" data-aos-delay="600">
+        <span>Why Choose us ?</span>
+        <h3>Natures Majesty awaits you</h3>
+        <p style="line-height: 3rem;">At our website, you can embark on a mesmerizing journey through a vast selection of captivating wizarding world destinations. From the iconic Hogwarts School of Witchcraft and Wizardry to the bustling streets of Diagon Alley and the picturesque village of Hogsmeade, our travel agency allows you to immerse yourself in the enchantment of the wizarding universe.
+
+          <!-- Booking your magical adventure is a breeze with our user-friendly platform. You can effortlessly secure your spot on a broomstick or the Knight Bus by reserving flights to your dream wizarding locations. Our flight search and booking system offer flexibility in choosing one-way or round-trip options, as well as selecting preferred dates and the number of travelers.
+          
+          We understand that every magical journey requires a cozy and delightful stay. Hence, we have curated a collection of charming accommodations at almost every destination. Whether you desire to experience the splendor of the Leaky Cauldron or the luxury of the Three Broomsticks Inn, our website offers a range of accommodation choices to suit every witch and wizard's taste.
+          
+          To ensure a seamless and secure experience, we provide hassle-free payment options for confirming your flights and hotel reservations. Once your booking is confirmed, prepare to be amazed as you receive personalized tickets, complete with bewitching details, sent directly to your email. The ease of downloading and printing these tickets adds a touch of real magic to your trip planning. -->
+          
+          </p>
+        <!-- <a href="/about" class="btn">Read More</a> -->
+    </div>
+
+</section>
+
+
+<section class="destination" id="destination">
+    <div class="heading">
+        <span>Our Destinations</span>
+        <h1>Explore the Mysterious Realms of Magic</h1>
+    </div>
+
+    <div class="box-container">
+        <% let animationTime = 100; %>
+        <% destinations.forEach(function(destination, index){ %>
+          <div class="box" data-aos="fade-up" data-aos-delay="<%= animationTime %>">
+            <div class="image">
+              <img src="<%= destination.firstImg %>" alt="">
+              <h3><i class="fas fa-map-marker-alt"></i><%= destination.title %></h3>
+            </div>
+            <div class="content">
+              <!-- <div class="price">$ 999 <span>1499</span></div>    -->
+              <p style="margin-top: -2rem;"><%= destination.firstPara %></p>
+              <a href="/alldestinations/<%= destination._id %>">Read More <i class="fas fa-angle-right"></i></a>
+            </div>
+          </div> 
+          <% animationTime += 100; %>
+          <% if (index === destinations.length - 1) { %>
+            <% animationTime = 100; %>
+          <% } %>
+        <% }); %>
+      </div>
+    </section>
+
+    <section class="more-destinations" data-aos="zoom-in-up" data-aos-delay="150">
+        <a href="/alldestinations">More Destinations  <i class="fas fa-angle-right"></i></a>
+    </section>
+
+<section class="pricing" id="pricing">
+    <h1 class="heading">Our Packages
+    </h1>
+    <div class="box-container">
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
+            <h3>Basic Plan</h3>
+            <div class="price">
+                <span>$</span>
+                <span class="amount">450</span>
+                <span>/mo</span>
+            </div>
+            <ul>
+                <li>10 days</li>
+                <li>food and drinks</li>
+                <li>safety guide</li>
+                <li>insurance</li>
+                <li>luxury hotel</li>
+            </ul>
+            <a href="#" class="btn">choose plan</a>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="300">
+            <h3>Standard Plan</h3>
+            <div class="price">
+                <span>$</span>
+                <span class="amount">750</span>
+                <span>/mo</span>
+            </div>
+            <ul>
+                <li>20 days</li>
+                <li>food and drinks</li>
+                <li>safety guide</li>
+                <li>insurance</li>
+                <li>luxury hotel</li>
+            </ul>
+            <a href="#" class="btn">choose plan</a>
+        </div>
+
+        <div class="box" data-aos="fade-up" data-aos-delay="450">
+            <h3>Premium Plan</h3>
+            <div class="price">
+                <span>$</span>
+                <span class="amount">950</span>
+                <span>/mo</span>
+            </div>
+            <ul>
+                <li>30 days</li>
+                <li>food and drinks</li>
+                <li>safety guide</li>
+                <li>insurance</li>
+                <li>luxury hotel</li>
+            </ul>
+            <a href="#" class="btn">choose plan</a>
+        </div>
+
+    </div>
+</section>
+
+<section class="destination" id="hotels">
+    <div class="heading">
+        <span>Our Hotel Packages</span>
+        <h1>Explore the Mysterious Realms of Magic
+        </h1>
+    </div>
+
+    <div class="box-container">
+        <% let animationTimer = 100; %>
+        <% hotels.forEach(function(hotel, index){ %>
+          <div class="box" data-aos="fade-up" data-aos-delay="<%= animationTimer %>">
+            <div class="image">
+              <img src="<%= hotel.firstImg %>" alt="">
+              <h3><i class="fas fa-map-marker-alt"></i><%= hotel.name %></h3>
+            </div>
+            <div class="content">
+              <div class="price">$ <%= hotel.pricePerNight %> <span><%= parseInt(hotel.pricePerNight) + 200 %></span></div>   
+              <p><%= hotel.firstPara %></p>
+              <a href="/allhotels/<%= hotel._id %>">Read More <i class="fas fa-angle-right"></i></a>
+            </div>
+          </div> 
+          <% animationTimer += 100; %>
+          <% if (index === hotels.length - 1) { %>
+            <% animationTimer = 100; %>
+          <% } %>
+        <% }); %>
+      </div>
+      
+    </section>
+    <section class="more-destinations" data-aos="zoom-in-up" data-aos-delay="150">
+      <a href="/allhotels">More Hotels  <i class="fas fa-angle-right"></i></a>
+  </section>
+
+<section class="services" id="services">
+    <div class="heading">
+        <span>Our Services</span>
+        <h1>Countless Experience</h1>
+    </div>
+
+    <div class="box-container">
+
+        <a href="/allflights">
+            <div class="box" data-aos="zoom-in-up" data-aos-delay="150">
+                <i class="fas fa-plane-departure"></i>
+                <h3>Flights</h3>
+            </div>
+        </a>
+
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="300">
+            <i class="fas fa-hiking"></i>
+            <h3>Adventures</h3>
+            <p></p>
+        </div>
+
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="450">
+            <i class="fas fa-utensils"></i>
+            <h3>Food & Drinks</h3>
+            <p></p>
+        </div>
+
+        <a href="/allhotels">
+            <div class="box" data-aos="zoom-in-up" data-aos-delay="600">
+                <i class="fas fa-hotel"></i>
+                <h3>Affordable Hotels</h3>
+                <p></p>
+            </div>
+        </a>
+
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="750">
+            <i class="fas fa-wallet"></i>
+            <h3>Transactions</h3>
+            <p></p>
+        </div>
+
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="900">
+            <i class="fas fa-headset"></i>
+            <h3>24/7 Support</h3>
+            <p></p>
+        </div>
+    </div>
+</section>
+
+
+<section class="review" id="review">
+    <h1 class="heading">Client's Review</h1>
+    <div class="swiper review-slider">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="/images/elon.jpg" alt="">
+          <h3>Elon Musk</h3>
+          <p>"Absolutely thrilled with my travel experience! The travel agency provided exceptional service, from planning my itinerary to arranging accommodations. The attention to detail and personalized recommendations made my trip unforgettable. I highly recommend their services to anyone seeking a seamless and memorable travel adventure."</p>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+            <img src="/images/elon.jpg" alt="">
+            <h3>Elon Musk</h3>
+            <p>"Absolutely thrilled with my travel experience! The travel agency provided exceptional service, from planning my itinerary to arranging accommodations. The attention to detail and personalized recommendations made my trip unforgettable. I highly recommend their services to anyone seeking a seamless and memorable travel adventure."</p>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <img src="/images/elon.jpg" alt="">
+            <h3>Elon Musk</h3>
+            <p>"Absolutely thrilled with my travel experience! The travel agency provided exceptional service, from planning my itinerary to arranging accommodations. The attention to detail and personalized recommendations made my trip unforgettable. I highly recommend their services to anyone seeking a seamless and memorable travel adventure."</p>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+      </div>
+      <div class="swiper-button-next"></div>
+     <div class="swiper-button-prev"></div>
+     <div class="swiper-pagination"></div>
+    </div>
+  </section>
+<section class="contact" id="contact">
+    <h1 class="heading">Contact Us</h1>
+    <form action="">
+        <div class="inputBox">
+            <input type="text" placeholder="enter your name">
+            <input type="email" placeholder="enter your email">
+        </div>
+
+        <div class="inputBox">
+            <input type="number" placeholder="enter your number">
+            <input type="text" placeholder="subject">
+        </div>
+
+        <textarea name="" placeholder="enter your message" id="" cols="30" rows="10"></textarea>
+
+        <input type="submit" value="send message" class="btn">
+        
+    </form>
+</section>
+
+<script>
+    let wizard = document.getElementById('Wizard');
+    let right = document.getElementById('Right');
+    let left = document.getElementById('Left');
+    let text1 = document.getElementById('text1');
+    let text2 = document.getElementById('text2');
+
+    function handleParallax() {
+      let value = window.scrollY;
+      background.style.left = value * .06 + 'px';
+      wizard.style.left = -value * .3 + 'px';
+      right.style.left = value * .3 + 'px';
+      left.style.left = -value * .3 + 'px';
+      text1.style.marginLeft = -value * 2.7 + 'px';
+      text2.style.marginRight= -value * 2 + 'px';
+    }
+
+  
+    function handleMobileParallax() {
+      let value = window.scrollY;
+      let wizard = document.getElementById('Wizard');
+      let right = document.getElementById('Right');
+      let left = document.getElementById('Left');
+      let text1 = document.getElementById('text1');
+      let text2 = document.getElementById('text2');
+  
+      wizard.style.left = -value * .05 + 'px';
+      right.style.left = value * .13 + 'px';
+      left.style.left = -value * .13 + 'px';
+      text1.style.marginLeft = -value * 2.7 + 'px';
+      text2.style.marginRight= -value * 2 + 'px';
+    }
+    
+    window.addEventListener('scroll', function () {
+      if (window.innerWidth <= 768) {
+        handleMobileParallax();
+      } else {
+        handleParallax();
+      }
+    });
+  </script>
+
+
+<script>
+    const adultCountElement = document.getElementById('adultCount');
+    const adultPlusIcon = document.getElementById('adultPlus');
+    const adultMinusIcon = document.getElementById('adultMinus');
+    
+    const childrenCountElement = document.getElementById('childrenCount');
+    const childrenPlusIcon = document.getElementById('childrenPlus');
+    const childrenMinusIcon = document.getElementById('childrenMinus');
+    
+    let adultCount = 1;
+    let childrenCount = 0;
+    
+    function updateCount(countElement, value, min, max) {
+      let count = parseInt(countElement.textContent) + value;
+      count = Math.min(Math.max(min, count), max);
+      countElement.textContent = count;
+    }
+    
+    adultPlusIcon.addEventListener('click', () => {
+      updateCount(adultCountElement, 1, 1, 5);
+      adultCount = parseInt(adultCountElement.textContent);
+      updateTotal();
+    });
+    
+    adultMinusIcon.addEventListener('click', () => {
+      updateCount(adultCountElement, -1, 1, 5);
+      adultCount = parseInt(adultCountElement.textContent);
+      updateTotal();
+    });
+    
+    childrenPlusIcon.addEventListener('click', () => {
+      updateCount(childrenCountElement, 1, 0, 5);
+      childrenCount = parseInt(childrenCountElement.textContent);
+      updateTotal();
+    });
+    
+    childrenMinusIcon.addEventListener('click', () => {
+      updateCount(childrenCountElement, -1, 0, 5);
+      childrenCount = parseInt(childrenCountElement.textContent);
+      updateTotal();
+    });
+    
+    const clickElement = document.getElementById('click');
+    
+    function updateTotal() {
+      const totalPassengers = adultCount + childrenCount;
+      clickElement.textContent = totalPassengers;
+    }
+    
+    updateTotal();
+  </script>
+
+
+
+  <script>
+    let dropdownMenu = document.querySelector('.dropdown1');
+    let clickButton = document.querySelector('#click');
+    clickButton.onclick = () => {
+      console.log("Button Clicked!");
+      dropdownMenu.classList.toggle('active');
+    };
+    function handleClickOutside(event) {
+      if (!dropdownMenu.contains(event.target) && !clickButton.contains(event.target)) {
+        dropdownMenu.classList.remove('active');
+      }
+    }
+      document.addEventListener('click', handleClickOutside);
+  </script>
+
+
+
+<script>
+    const cabinOptions = document.querySelectorAll('.cabinOption');
+    const selectedOptionElement = document.querySelector('.selectedOption');
+    let selectedOption = 'Business';
+    selectedOptionElement.textContent = selectedOption;
+  
+    cabinOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        cabinOptions.forEach((option) => {
+          option.classList.remove('selected');
+        });
+        option.classList.add('selected');
+        selectedOption = option.textContent;
+        selectedOptionElement.textContent = selectedOption;
+      });
+    });
+  
+    const passengerOptions = document.querySelectorAll('.box .passengerOption');
+  
+    let totalPassengers = 1;
+    clickElement.textContent = totalPassengers;
+  
+    passengerOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const optionText = option.textContent;
+        if (optionText === '+') {
+          totalPassengers = Math.min(totalPassengers + 1, 5);
+        } else if (optionText === '-' && totalPassengers > 1) {
+          totalPassengers -= 1;
+        }
+        clickElement.textContent = totalPassengers;
+      });
+    });
+  </script>
+  
+
+  <script>
+const linksContainer = document.querySelector('.links');
+const links = linksContainer.querySelectorAll('p');
+
+function handleLinkClick(event) {
+  if (event.target.tagName !== 'P') return; 
+
+  links.forEach(link => {
+    if (link === event.target) {
+      console.log('Button Clicked!');
+      link.classList.add('selected');
+      if (link.id === 'link1') {
+        document.querySelector('.return').style.visibility = 'hidden';
+      } else {
+        document.querySelector('.return').style.visibility = 'visible';
+      }
+    } else {
+      link.classList.remove('selected');
+    }
+  });
+}
+
+    linksContainer.addEventListener('click', handleLinkClick);
+    
+    document.getElementById('link2').classList.add('selected');
+    document.querySelector('.return').style.visibility = 'visible';
+    
+    const inputAdultsElement = document.getElementById('inputAdults');
+    
+    inputAdultsElement.value = clickElement.textContent;
+    
+    clickElement.addEventListener('input', () => {
+      inputAdultsElement.value = clickElement.textContent;
+    });
+  </script>
+
+
+<script>
+  function setFormattedDateToInputs() {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month;
+  }
+  let day = today.getDate();
+  if (day < 10) {
+    day = '0' + day;
+  }
+  const formattedDate = `${year}-${month}-${day}`;
+
+  document.getElementById("date1").value = formattedDate;
+  document.getElementById("date1").min = formattedDate;
+
+  const nextDay = new Date(today);
+  nextDay.setDate(nextDay.getDate() + 1);
+
+  const nextYear = nextDay.getFullYear();
+  let nextMonth = nextDay.getMonth() + 1;
+  if (nextMonth < 10) {
+      nextMonth = '0' + nextMonth;
+  }
+  let nextDayOfMonth = nextDay.getDate();
+  if (nextDayOfMonth < 10) {
+      nextDayOfMonth = '0' + nextDayOfMonth;
+  }
+  const formattedNextDate = `${nextYear}-${nextMonth}-${nextDayOfMonth}`;
+
+  document.getElementById("date2").value = formattedNextDate;
+  document.getElementById("date2").min = formattedNextDate;
+}  
+
+setFormattedDateToInputs();
+
+const departureDateInput = document.getElementById("date1");
+const arrivalDateInput = document.getElementById("date2");
+
+departureDateInput.addEventListener("input", () => {
+  const departureDate = new Date(departureDateInput.value);
+  const nextDay = new Date(departureDate);
+  nextDay.setDate(nextDay.getDate() + 1);
+
+  const nextYear = nextDay.getFullYear();
+  let nextMonth = nextDay.getMonth() + 1;
+  if (nextMonth < 10) {
+    nextMonth = '0' + nextMonth;
+  }
+  let nextDayOfMonth = nextDay.getDate();
+  if (nextDayOfMonth < 10) {
+    nextDayOfMonth = '0' + nextDayOfMonth;
+  }
+  const formattedNextDate = `${nextYear}-${nextMonth}-${nextDayOfMonth}`;
+
+  arrivalDateInput.min = formattedNextDate;
+});
+
+</script>
+
+<%- include("partials/footer") -%>
