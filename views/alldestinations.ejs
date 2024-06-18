@@ -1,0 +1,29 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+<section class="destination" id="destination" style="margin-top: 100px;">
+    <div class="heading">
+        <span>Our Destination</span>
+        <h1>Make your Destination</h1>
+    </div>
+
+    <div class="box-container">
+        <% let animationTime = 100; %>
+        <% destinations.forEach(function(destination, index){ %>
+          <div class="box" data-aos="fade-up" data-aos-delay="<%= animationTime %>">
+            <div class="image">
+              <img src="<%= destination.firstImg %>" alt="">
+              <h3><i class="fas fa-map-marker-alt"></i><%= destination.title %></h3>
+            </div>
+            <div class="content">
+              <p><%= destination.firstPara %></p>
+              <a href="/alldestinations/<%= destination._id %>">Read More <i class="fas fa-angle-right"></i></a>
+            </div>
+          </div> 
+          <% animationTime += 50; %>
+          <% if (index === destinations.length - 1) { %>
+            <% animationTime = 100; %>
+          <% } %>
+        <% }); %>
+      </div>
+</section>
+<div class="space" style="margin-top: 20rem;"></div>
+<%- include("partials/footer"); -%>
