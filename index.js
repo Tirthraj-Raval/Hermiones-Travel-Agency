@@ -1266,8 +1266,8 @@ app.post("/allflights/:flightId/bookflight/paypal", isAuthenticated, async funct
           payment_method: "paypal",
         },
         redirect_urls: {
-          return_url: `http://localhost:3000/allflights/${flightId}/bookflight/paypal/success`,
-          cancel_url: `http://localhost:3000/allflights/${flightId}/bookflight/paypal/cancel`,
+          return_url: `http://localhost:3000/allflights/${flightId}/bookflight/paypal/success` || '/',
+          cancel_url: `http://localhost:3000/allflights/${flightId}/bookflight/paypal/cancel` || '/',
         },
         transactions: [
           {
