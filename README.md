@@ -46,7 +46,7 @@ Unlock exclusive perks and magical surprises with our subscription plans. Choose
 
 Read glowing reviews from fellow travelers who have experienced the magic firsthand. Get insights and recommendations for an extraordinary journey.
 
-### 8. Auto =matic ticket generation and mailing system.
+### 8. Automatic ticket generation and mailing system.
 
 Whenever a user has booked a flight or hotel then he needs to make the payment through paypal payment gateway and then a ticket is generated for their booking which is downloadable and also automatic emailed to the user's email address.
 
