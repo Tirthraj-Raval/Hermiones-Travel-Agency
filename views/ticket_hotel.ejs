@@ -1,0 +1,259 @@
+<div class="button-container">
+    <style>
+      .button-container{
+        text-align: center;
+        margin-top: 20px;
+      }
+      .btn{
+        margin-top: 1rem;
+        display: inline-block;
+        padding: 1rem 3rem;
+        font-size: 1.3rem;
+        color: #ffffff;
+        background: #3bb2e6;
+        border-radius: 1rem;
+        cursor: pointer;
+        margin-left: 3rem;
+        margin-bottom: 3rem;
+        text-decoration: none;
+      }
+      @media (max-width: 768px) {
+        .btn {
+          font-size: .8rem;
+        }
+      }
+      .btn:hover {
+        color: #000;
+      }
+      
+    </style>
+    <a class="btn" href="/download-ticket/hotel">Download Invoice</a>
+  <a class="btn" href="/">Back To Home</a>
+  </div>
+  
+  <%- include("partials/newheader.ejs"); -%>
+  
+  
+  <table cellspacing="0" cellpadding="0" width="60%" style="border: 1px solid #000; max-width: 65%; margin: 0 auto; font-family: 'Montserrat', sans-serif; padding: 0 20px; color: #000; background-color: #ffffff;">
+      <div class="cl1">
+          <tr> 
+              <!-- <td style="padding: 20px 0 20px 15px; text-align: left; font-weight: 400;">
+                <h1 style="color: #3bb2e6; margin:  0 0 5px; text-transform: uppercase; margin-top: 2rem;margin-bottom: -1.5rem;margin-left: -.9rem; font-size: 25px;">Tax Invoice</h1>
+              </td> -->
+              
+    
+              <td align="right" style="font-weight: bolder; font-size: 2.2rem; color: #111;">
+                <h3 style="margin:  0 0 5px; text-transform: uppercase; margin-top: 2rem;margin-bottom: -1.5rem;margin-left: -.9rem;">
+                    <% if (user.googleId) { %>
+                        <span><%= user.googleDisplayName %></span>
+                        <% } else if (user.facebookId) { %>
+                        <span><%= user.facebookDisplayName %></span>
+                      <% } else { %>
+                        <span><%= user.name %></span>
+                      <% } %>
+                </h3>
+                <h1 style="color: #3bb2e6; margin:  0 0 5px; text-transform: uppercase; margin-top: 2rem;margin-bottom: -1.5rem;margin-left: -.9rem; font-size: 22px;">Hotel Invoice</h1>
+  
+              </td>
+            </tr>
+            <tr>
+              <!-- <td colspan="2">
+  
+              <table cellspacing="0" cellpadding="0" width="100%" style="margin: 0 0 15px; margin-top: 3rem;">
+                  <td style="border-radius: 1rem; margin-top: 2rem; font-size: smaller; font-weight: bolder; background-color: #eee; color: #eee; padding: 10px 15px; width: 25%">
+                      Passenger & Ticket Information
+                    </td>
+              </table>
+              </td> -->
+              
+            </tr>
+      </div>
+      
+    
+      <!--Return Flight Details Start-->
+        <td colspan="2">
+          <table cellspacing="0" cellpadding="0" width="100%" style="border: 1px solid #ccc;margin: 0 0 25px; margin-bottom: 3rem; margin-top: 3rem;">
+            <tr>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px; width: 25%">
+                Passenger & Ticket Information
+              </td>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px; border-left: 1px solid #c4c1c1; width: 25%;">
+                Payment Information
+              </td>
+              
+            </tr>
+            <tr>
+              <td style="font-size: 17px; font-weight: bolder; padding: 15px; border-bottom: 2.5px solid #c4c1c1; width: 25%;">
+                Passenger Name :
+                <% if (user.googleId) { %>
+                    <span style="color: #00000071;"><%= user.googleDisplayName %></span>
+                    <% } else if (user.facebookId) { %>
+                    <span style="color: #00000071;"><%= user.facebookDisplayName %></span>
+                  <% } else { %>
+                    <span style="color: #00000071;"><%= user.name %></span>
+                  <% } %>
+              </td>
+              
+                <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  border-left: 1px solid #c4c1c1; width: 25%;">
+                  Payment Gateway : <span style="color: #00000071;">PayPal</span>
+                </td>
+              </tr>
+  
+              <tr>
+                  <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  width: 25%;">
+                    Journey Date: <span style="color: #00000071;"><%= new Date(newbooking.checkInDate).toISOString().split('T')[0] %></span>
+                  </td>
+                  <td style="font-size: 17px; font-weight: bolder;padding: 15px;border-bottom: 2.5px solid #c4c1c1;  border-left: 1px solid #c4c1c1; width: 25%;">
+                    Paid Date :<span style="color: #00000071;"> <%= new Date(newbooking.checkInDate).toISOString().split('T')[0] %></span>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td style="font-size: 17px; font-weight: bolder;padding: 15px;border-bottom: 2.5px solid #c4c1c1;  width: 25%;">
+                    Ticket Number : <span style="color: #00000071;">A12</span>
+                  </td>
+                  <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  border-left: 1px solid #c4c1c1; width: 25%;">
+                    Transaction ID : <span style="color: #00000071;">TI54187465</span>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  width: 25%;">
+                    Booking Reference : <span style="color: #00000071;">HC765W
+                  </td>
+                  <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  border-left: 1px solid #c4c1c1; width: 25%;">
+                    Occupied Rooms <span style="color: #00000071;"><%= newbooking.occupiedRooms %>
+                  </td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  width: 25%;">
+                      Hotel Location <span style="color: #00000071;"><%=hotel.location%>
+                    </td>
+                    <td style="font-size: 17px;font-weight: bolder; padding: 15px;border-bottom: 2.5px solid #c4c1c1;  border-left: 1px solid #c4c1c1; width: 25%;">
+                      Price Per Night : <span style="color: #00000071;"><%= hotel.pricePerNight %>
+                    </td>
+                  </tr>
+                
+          </table>
+        </td>
+      </tr>
+      <!--Return Flight Details End-->
+  
+      <tr>
+        <td colspan="2">
+          <table cellspacing="0" cellpadding="0" width="100%" style="border: 1px solid #ccc; margin: 0 0 5px;">
+            <tr>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px;">
+                Hotel Details
+              </td>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px; ">
+                Number of Members
+              </td>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px; ">
+                  Occupied Rooms
+              </td>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px; ">
+                Check In Date
+              </td>
+              <td style="font-size: large; font-weight: bolder; background-color: #eee; color: #111; padding: 10px 15px; ">
+                Check Out Date
+              </td>
+            </tr>
+            <!--Traveller Details Start-->
+            <tr>
+              <td style="font-size: 17px; padding: 15px; text-align: left; border-bottom: 3px solid #ccc;">
+                <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;"><%=newbooking.hotelName %>, Location : <%=hotel.location%></h3>
+                <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;">Date : <%= new Date(newbooking.checkInDate).toISOString().split('T')[0] %></h3>
+                <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;">Date : <%= new Date(newbooking.checkOutDate).toISOString().split('T')[0] %></h3>
+  
+    
+              </td>
+              <td style="font-size: 17px; padding: 15px; text-align: left; border-bottom: 3px solid #ccc;">
+                  <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;"><%=newbooking.numberOfMembers%></h3>
+  
+              </td>
+              <td style="font-size: 17px; padding: 15px; text-align: left; border-bottom: 3px solid #ccc;">
+                  <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;"><%=newbooking.occupiedRooms%></h3>
+              </td>
+              <td style="font-size: 17px; padding: 15px; text-align: left; border-bottom: 3px solid #ccc;">
+                  <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;"><%= new Date(newbooking.checkInDate).toISOString().split('T')[0] %></h3>
+              </td>
+              <td style="font-size: 17px; padding: 15px; text-align: left; border-bottom: 3px solid #ccc;">
+                  <h3 style="margin: 0; text-transform: uppercase; border-bottom: 0px solid #ccc; padding: 0px 0 5px; color: #00000071; font-size: 18px;"><%= new Date(newbooking.checkOutDate).toISOString().split('T')[0] %></h3>
+              </td>
+            </tr>
+            <!--Conv Fee Start-->
+            <tr>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: left;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: center;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: center;">&nbsp;</td>
+  
+              <td style="font-size: 17px; padding: 15px 15px 0;">
+                <p style="font-weight: 700; margin: 0;">Convenience Fee</p>
+              </td>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: center; border-left: 1px solid #ccc; border-top: 0px solid #ccc;">
+                $<%= totalAmount %>
+              </td>
+            </tr>
+            <!--Conv Fee End-->
+            <!--Coupon Fee Start-->
+            
+            <tr>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: left;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: center;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: center;">&nbsp;</td>
+  
+              <td style="font-size: 17px; padding: 5px 15px 0;">
+                <p style="margin: 0; font-size: 14px;">Coupon(TRIP)</p>
+              </td>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: center; border-left: 1px solid #ccc;">
+                $0
+              </td>
+            </tr>
+            <!--Coupon Fee End-->
+            <!--GST Fee Start-->
+            <tr>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: left;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: center;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: center;">&nbsp;</td>
+  
+              <td style="font-size: 17px; padding: 5px 15px 0;">
+                <p style="margin: 0; font-size: 14px;">CGST(@9%)</p>
+              </td>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: center; border-left: 1px solid #ccc;">
+                $0
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: left;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 5px 0 0; text-align: center;">&nbsp;</td>
+              <td style="font-size: 17px; padding: 15px 0 0; text-align: center;">&nbsp;</td>
+  
+              <td style="font-size: 17px; padding: 5px 15px 15px;">
+                <p style="margin: 0; font-size: 14px;">SGST/IGST/UTGST (@9%)</p>
+              </td>
+              <td style="font-size: 17px; padding: 5px 0 15px; text-align: center; border-left: 1px solid #ccc;">
+                $0
+              </td>
+            </tr>
+            <!--GST Fee End-->
+            <!--Grand Total Start-->
+            <tr>
+              <td style="font-size: 17px; margin-top: 15px; padding: 15px 0; text-align: left; border-top: 1px solid #ccc;">&nbsp;</td>
+              <td style="font-size: 17px; margin-top: 15px; padding: 15px 0; text-align: center; border-top: 1px solid #ccc;">&nbsp;</td>
+              <td style="font-size: 17px; margin-top: 15px; padding: 15px 0; text-align: center; border-top: 1px solid #ccc;">&nbsp;</td>
+  
+              <td style="font-size: 17px; margin-top: 15px; padding: 15px 15px;border-top: 1px solid #ccc;">
+                <p style="font-weight: 700; margin: 0;">GRAND TOTAL</p>
+              </td>
+              <td style="font-size: 17px; margin-top: 15px; padding: 15px 0; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc;">
+                $<%= totalAmount %>
+              </td>
+            </tr>
+            <!--Grand Total End-->
+          </table>
+        </td>
+      </tr>
+  
+  <%- include("partials/newfooter.ejs"); -%>
