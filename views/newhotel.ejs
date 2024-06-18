@@ -1,0 +1,71 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+<section class="new-hotel">
+<div class="box-container">
+    <div class="box">
+    <h1 class="text heading">Add New Hotel</h1>
+<!-- </div> -->
+</div>
+<form action="/newhotel" method="post">
+    <div class="form-group">
+    <label for="hotelName">Hotel Name</label>
+    <input type="text" class="form-control" id="hotelName" name="hotelName" required>
+  </div>
+  <div class="form-group">
+    <label for="firstPara">First Short Paragraph</label>
+    <input type="text" class="form-control" id="FirstPara" name="firstPara"  required>
+  </div>
+  <div class="form-group">
+    <label for="hotelDescription">Description</label>
+    <textarea class="form-control" id="hotelDescription" name="hotelDescription" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="hotelLocation">Location</label>
+    <select class="form-control" id="hotelLocation" name="hotelLocation"  required>
+      <option value="" disabled selected>Select the place</option>
+      <option value="Hogwarts Castle">Hogwarts Castle</option>
+      <option value="Diagon Alley">Diagon Alley</option>
+      <option value="Hogsmeade Village">Hogsmeade Village</option>
+      <option value="The Forbidden Forest">The Forbidden Forest</option>
+      <option value="Ministry of Magic">Ministry of Magic</option>
+      <option value="Durmstrang Institute">Durmstrang Institute</option>
+      <option value="Beauxbatons Academy of Magic">Beauxbatons Academy of Magic</option>
+      <option value="Azkaban">Azkaban</option>
+  </select>
+  </div>
+  <div class="form-group">
+    <label for="hotelAmenities">Amenities</label>
+    <input type="text" class="form-control" id="hotelAmenities" name="hotelAmenities"  required>
+  </div>
+  <div class="form-group">
+    <label for="pricePerNight">Price Per Night</label>
+    <input type="text" class="form-control" id="pricePerNight" name="pricePerNight"  required>
+  </div>
+  <div class="form-group">
+    <label for="hotelRating">Rating</label>
+    <input type="text" class="form-control" id="hotelRating" name="hotelRating"  required>
+  </div>
+  <div class="form-group">
+    <label for="availableRooms">Available Rooms</label>
+    <input type="text" class="form-control" id="availableRooms" name="availableRooms" required>
+  </div>
+  <div class="form-group">
+    <label for="totalRooms">Total Rooms</label>
+    <input type="text" class="form-control" id="totalRooms" name="totalRooms"  required>
+  </div>
+  <div class="form-group">
+    <label for="firstImg">First Image URL</label>
+    <input type="text" class="form-control" id="firstImg" name="firstImg"  required>
+  </div>
+  <div class="form-group">
+    <label for="imageLink">Images Link</label>
+    <input type="text" class="form-control" id="imageLink" name="imageLink">
+  </div>
+  <div class="tp">
+    <button type="submit" class="btn btn-primary">Add Hotel</button>
+  </div> 
+</form>
+</section>
+<div class="space" style="margin-top: 20rem;"></div>
+
+
+<%- include("partials/footer"); -%>

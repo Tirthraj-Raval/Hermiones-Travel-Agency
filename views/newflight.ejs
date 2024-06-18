@@ -1,0 +1,242 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="new-flight">
+  <div class="box-container">
+    <div class="box">
+  <h1>Add New Flight</h1>
+  <form action="/newflight" method="post" id="flightForm">
+    <div class="form-group">
+      <label for="flightID">Flight ID</label>
+      <input type="text" class="form-control" id="flightID" name="flightID" required>
+    </div>
+    <div class="form-group">
+      <label for="departure">Departure</label>
+      <select name="departure" class="form-control" id="departure" required>
+        <option value="" disabled selected>Select a state</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <option value="Assam">Assam</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Chhattisgarh">Chhattisgarh</option>
+        <option value="Goa">Goa</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Himachal Pradesh">Himachal Pradesh</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Manipur">Manipur</option>
+        <option value="Meghalaya">Meghalaya</option>
+        <option value="Mizoram">Mizoram</option>
+        <option value="Nagaland">Nagaland</option>
+        <option value="Odisha">Odisha</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Sikkim">Sikkim</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Tripura">Tripura</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Uttarakhand">Uttarakhand</option>
+        <option value="West Bengal">West Bengal</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="arrival">Arrival</label>
+      <select name="arrival" class="form-control" id="arrival" required>
+        <option value="" disabled selected>Select the place</option>
+        <option value="Hogwarts Castle">Hogwarts Castle</option>
+        <option value="Diagon Alley">Diagon Alley</option>
+        <option value="Hogsmeade Village">Hogsmeade Village</option>
+        <option value="The Forbidden Forest">The Forbidden Forest</option>
+        <option value="Ministry of Magic">Ministry of Magic</option>
+        <option value="Durmstrang Institute">Durmstrang Institute</option>
+        <option value="Beauxbatons Academy of Magic">Beauxbatons Academy of Magic</option>
+        <option value="Azkaban">Azkaban</option>
+    </select>
+    </div>
+    <div class="form-group">
+      <label for="maxCapacity">Max Capacity</label>
+      <input type="number" class="form-control" id="maxCapacity" name="maxCapacity" required>
+    </div>
+    <h3>Schedule</h3>
+    <div class="form-group">
+      <label for="departureDate">Departure Date</label>
+      <input type="date" class="form-control" id="departureDate" name="departureDate" required>
+    </div>
+    <div class="form-group">
+      <label for="departureTime">Departure Time</label>
+      <input type="time" class="form-control" id="departureTime" name="departureTime" required>
+    </div>
+    <div class="form-group">
+      <label for="arrivalDate">Arrival Date</label>
+      <input type="date" class="form-control" id="arrivalDate" name="arrivalDate" required>
+    </div>
+    <div class="form-group">
+      <label for="arrivalTime">Arrival Time</label>
+      <input type="time" class="form-control" id="arrivalTime" name="arrivalTime" required>
+    </div>
+    <div class="form-group">
+      <label for="availableSeats">Available Seats</label>
+      <input type="number" class="form-control" id="availableSeats" name="availableSeats" required>
+    </div>
+    <div class="form-group">
+      <label for="price">Flight Price</label>
+      <input type="number" class="form-control" id="price" name="price" required>
+      <p id="priceMessage" class="message"></p>
+    </div>
+    <div class="tp">
+      <button type="submit" class="btn btn-primary">Add Flight</button>
+    </div>
+  </form>
+  </div>
+  </div>
+</section>
+<div class="space" style="margin-top: 20rem;"></div>
+
+
+<script>
+  function setFormattedDateToInputs2() {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month;
+  }
+  let day = today.getDate();
+  if (day < 10) {
+    day = '0' + day;
+  }
+  const formattedDate = `${year}-${month}-${day}`;
+
+  document.getElementById("departureDate").value = formattedDate;
+  document.getElementById("departureDate").min = formattedDate;
+
+  const nextDay = new Date(today);
+        nextDay.setDate(nextDay.getDate() + 1);
+
+        const nextYear = nextDay.getFullYear();
+        let nextMonth = nextDay.getMonth() + 1;
+        if (nextMonth < 10) {
+            nextMonth = '0' + nextMonth;
+        }
+        let nextDayOfMonth = nextDay.getDate();
+        if (nextDayOfMonth < 10) {
+            nextDayOfMonth = '0' + nextDayOfMonth;
+        }
+        const formattedNextDate = `${nextYear}-${nextMonth}-${nextDayOfMonth}`;
+
+        document.getElementById("arrivalDate").value = formattedNextDate;
+        document.getElementById("arrivalDate").min = formattedNextDate;
+      }
+      setFormattedDateToInputs2();
+
+      const departureDateInput = document.getElementById("departureDate");
+      const arrivalDateInput = document.getElementById("arrivalDate");
+    
+      departureDateInput.addEventListener("input", () => {
+        const departureDate = new Date(departureDateInput.value);
+        const nextDay = new Date(departureDate);
+        nextDay.setDate(nextDay.getDate() + 1);
+    
+        const nextYear = nextDay.getFullYear();
+        let nextMonth = nextDay.getMonth() + 1;
+        if (nextMonth < 10) {
+          nextMonth = '0' + nextMonth;
+        }
+        let nextDayOfMonth = nextDay.getDate();
+        if (nextDayOfMonth < 10) {
+          nextDayOfMonth = '0' + nextDayOfMonth;
+        }
+        const formattedNextDate = `${nextYear}-${nextMonth}-${nextDayOfMonth}`;
+    
+        arrivalDateInput.min = formattedNextDate;
+      });
+</script>
+
+<script>
+  const maxCapacityInput = document.getElementById('maxCapacity');
+  const availableSeatsInput = document.getElementById('availableSeats');
+
+  maxCapacityInput.addEventListener('input', validateInput);
+  availableSeatsInput.addEventListener('input', validateInput);
+  priceInput.addEventListener('input', validateInput);
+
+  function validateInput() {
+    const maxCapacity = parseInt(maxCapacityInput.value) || 0;
+    const availableSeats = parseInt(availableSeatsInput.value) || 0;
+    // Validate non-negative values
+    if (maxCapacity < 0) {
+      maxCapacityInput.value = 0;
+    }
+    if (availableSeats < 0) {
+      availableSeatsInput.value = 0;
+    }
+
+    // Enforce maximum limit of 200
+    if (maxCapacity > 200) {
+      maxCapacityInput.value = 200;
+    }
+    if (availableSeats > 200) {
+      availableSeatsInput.value = 200;
+    }
+
+    // Ensure available seats are less than or equal to max capacity
+    if (availableSeats > maxCapacity) {
+      availableSeatsInput.value = maxCapacity;
+    }
+  }
+</script>
+
+<script>
+  const flightForm = document.getElementById("flightForm");
+  const priceInput = document.getElementById("price");
+  const priceMessage = document.getElementById("priceMessage");
+
+  function showMessage(message) {
+    priceMessage.textContent = message;
+  }
+
+  function hideMessage() {
+    priceMessage.textContent = "";
+  }
+
+  function validatePrice() {
+    const priceValue = parseInt(priceInput.value);
+
+    if (isNaN(priceValue) || priceValue < 0) {
+      showMessage("Price cannot be negative.");
+      return false;
+    } else if (priceValue < 15) {
+      showMessage("Minimum price limit is 15.");
+      return false;
+    } else if (priceValue > 1000) {
+      showMessage("Maximum price limit is 1000.");
+      return false;
+    } else {
+      hideMessage();
+      return true;
+    }
+  }
+
+  priceInput.addEventListener("input", () => {
+    if (priceInput.value.trim() === "") {
+      hideMessage();
+    } else {
+      validatePrice();
+    }
+  });
+
+  flightForm.addEventListener("submit", (event) => {
+    if (!validatePrice()) {
+      event.preventDefault();
+    }
+    // Add validation for other form fields if required
+  });
+</script>
+
+
+
+<%- include("partials/footer"); -%>
