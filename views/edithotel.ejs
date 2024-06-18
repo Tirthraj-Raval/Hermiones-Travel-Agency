@@ -1,0 +1,100 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="edit">
+  <h1 class="text">Edit Hotel Details</h1>
+  <section class="edit2">
+    <form action="/allhotels/<%= foundHotel._id %>/edit" method="post" style="color:var(--textcolor1); font-size: 2rem;">
+      <div class="form-group">
+        <label for="updatedTitle">Hotel Name</label>
+        <input type="text" class="form-control" id="updatedName" name="updatedName" value="<%= foundHotel.name %>" required>
+      </div>
+      <div class="form-group">
+        <label for="updatedFirstPara">Intro</label>
+        <input type="text" class="form-control" id="updatedFirstPara" name="updatedFirstPara" value="<%= foundHotel.firstPara %>" required>
+      </div>
+      <div class="form-group">
+        <label for="updatedDescription">Description</label>
+        <textarea class="form-control" id="updatedDescription" name="updatedDescription" style="white-space: pre-wrap;" rows="8" required><%= foundHotel.description %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="updatedLocation">Location</label>
+        <input type="text" class="form-control" id="updatedLocation" name="updatedLocation" value="<%= foundHotel.location %>" required>
+      </div>
+      
+    
+      <div class="form-group">
+        <label for="updatedAmenities">Amenities</label>
+        <input type="text" class="form-control" id="updatedAmenities" name="updatedAmenities" >
+      </div>
+    
+      <div class="form-group">
+        <label for="updatedPricePerNight">Price Per Night</label>
+        <input type="text" class="form-control" id="updatedPricePerNight" name="updatedPricePerNight" value="<%= foundHotel.pricePerNight %>" required>
+      </div>
+      <div class="form-group">
+        <label for="updatedRating">Rating</label>
+        <input type="text" class="form-control" id="updatedRating" name="updatedRating" value="<%= foundHotel.rating %>" required>
+      </div>
+      <div class="form-group">
+        <label for="updatedAvailableRooms">Available Rooms</label>
+        <input type="text" class="form-control" id="updatedAvailableRooms" name="updatedAvailableRooms" value="<%= foundHotel.availableRooms %>" required>
+      </div>
+      <div class="form-group">
+        <label for="updatedTotalRooms">Total Rooms</label>
+        <input type="text" class="form-control" id="updatedTotalRooms" name="updatedTotalRooms" value="<%= foundHotel.totalRooms %>" required>
+      </div>
+      <div class="form-group">
+        <label for="firstImg">First Image URL</label>
+        <input type="text" class="form-control" id="firstImg" name="firstImg" value="<%= foundHotel.firstImg %>" required>
+      </div>
+      <div class="form-group">
+        <label for="images">Images Link</label>
+        <input type="text" class="form-control" id="images" name="images">
+      </div>
+      <div class="tp">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+    
+    <h3 style="margin-top: 50px; color:var(--textcolor1); font-size : 4rem;">Existing Images</h3>
+    <% if (foundHotel.images && foundHotel.images.length > 0) { %>
+      <ul>
+        <% foundHotel.images.forEach(function(image) { %>
+          <li>
+            <form action="/allhotels/<%= foundHotel._id %>/delete-image" method="post">
+              <input type="hidden" name="images" value="<%= image %>">
+              <div class="buttons">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+              </div>
+              <img src="<%= image %>" alt="Destination Image" class="img">
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p style="color:var(--textcolor1); font-size : 2rem;">No images found.</p>
+    <% } %>
+    
+    
+    <h3 style="margin-top: 50px;margin-bottom: 2re; color:var(--textcolor1); font-size : 4rem;">Existing Amenities</h3>
+    <% if (foundHotel.amenities && foundHotel.amenities.length > 0) { %>
+      <ul>
+        <% foundHotel.amenities.forEach(function(amenity) { %>
+          <li>
+            <p class="amenity" style="color:var(--textcolor1); font-size : 2rem;"><%= amenity %></p>
+            <form action="/allhotels/<%= foundHotel._id %>/delete-amenity" method="post">
+              <input type="hidden" name="amenity" value="<%= amenity %>">
+              <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p style="color:var(--textcolor1); font-size : 2rem;">No amenities found.</p>
+    <% } %>
+    
+  </section>
+</section>
+<div class="space" style="margin-top: 20rem;"></div>
+
+<%- include("partials/footer"); -%>
