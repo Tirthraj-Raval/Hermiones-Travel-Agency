@@ -1,0 +1,323 @@
+<div class="banner">
+  <div class="content" data-aos="zoom-in-up" data-aos-delay="100">
+      <span>Start Your Magical Adventures</span>
+      <h3>Let's Explore The Beasts With Us !!! </h3>
+      <a href="https://69beast.up.railway.app/" class="btn">Explore Beasts</a>
+  </div>
+</div>
+
+<section class="footer">
+  <div class="box-container">
+      <div class="box" data-aos="fade-up" data-aos-delay="100">
+          <h3>Follow Us</h3>
+          <div class="share">
+              <a href="#" class="fab fa-facebook-f"></a>
+              <a href="#" class="fab fa-twitter"></a>
+              <a href="#" class="fab fa-instagram"></a>
+              <a href="#" class="fab fa-linkedin"></a>
+          </div>
+      </div>
+
+      <div class="box" data-aos="fade-up" data-aos-delay="200">
+          <h3>quick links</h3>
+          <a href="#home" class="links"><i class="fas fa-arrow-right"></i>home</a>
+          <a href="#about" class="links"><i class="fas fa-arrow-right"></i>about</a>
+          <a href="#destination" class="links"><i class="fas fa-arrow-right"></i>destination</a>
+          <a href="#pricing" class="links"><i class="fas fa-arrow-right"></i>pricing</a>
+          <a href="#services" class="links"><i class="fas fa-arrow-right"></i>services</a>
+          <a href="#review" class="links"><i class="fas fa-arrow-right"></i>review</a>
+          <a href="#contact" class="links"><i class="fas fa-arrow-right"></i>contact us</a>
+
+      </div>
+
+      <div class="box" data-aos="fade-up" data-aos-delay="300">
+          <h3>Contact Info</h3>
+          <p><i class="fas fa-map"></i> Ahmedabad, India</p>
+          <p><i class="fas fa-phone"></i> 7874030383</p>
+          <p><i class="fas fa-envelope"></i> HermioneMagicalEscape@gmail.com</p>
+          <p><i class="fas fa-clock"></i> 9:00am - 11:00pm</p>
+      </div>
+
+      <div class="box" data-aos="fade-up" data-aos-delay="400">
+        <% if(user && user.subscribed === "false") { %>
+          <h3>Newsletter</h3>
+          <p>Subscribe us for latest updates</p>
+          <form action="/newsletter", method="post">
+              <input type="email"  placeholder="enter your email" name="email" class="email" id="">
+              <input type="submit" value="subscribe" class="btn">
+          </form>
+          <% } else if(user && user.subscribed === "true") { %>
+            <h3>You have subscribed to our newsletter through <%= user.subscribedemail %> email</h3>
+            <p>If you want to unsubscribe then you can unsubscribe below</p>
+            <form action="/newsletter/unsubscribe", method="post">
+              <input type="submit" value="Unsubscribe" class="btn">
+          </form>
+          <% } else { %>
+            <h3>Newsletter</h3>
+          <p>Subscribe us for latest updates</p>
+          <form action="/newsletter", method="post">
+              <input type="email"  placeholder="enter your email" name="email" class="email" id="">
+              <input type="submit" value="subscribe" class="btn">
+          </form>
+          <% } %>
+      </div>
+  </div>
+</section>
+
+<div class="credit">created by <span>Hermione's Magical Journeys</span> | all rights conserved</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".review-slider", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      autoplay:{
+          delay:3000,
+          disableOnInteraction:false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var mySwiper = new Swiper(".slider", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+          rotate: 20,
+          stretch: 0,
+          depth: 100,
+          modifier: 2.2,
+          slideShadows: true,
+        },
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        on: {
+          reachEnd: function () {
+            let activeSlides = this.slides;
+  
+            for (let i = 0; i < activeSlides.length; i++) {
+              activeSlides[i].style.zIndex = "1";
+            }
+  
+            this.slides[this.activeIndex].style.zIndex = "10";
+          },
+        },
+      });
+    });
+  </script>
+  
+
+
+
+<script>
+    AOS.init({
+        duration:800,
+        offset:150,
+    });
+</script>
+
+<script>
+// const multiCitiesRadio = document.getElementById('multi-cities');
+// const extraSection = document.querySelector('.extra-section');
+// const extraSection1 = document.querySelector('.extra-section1');
+// const addFlightButton = document.querySelector('.add-new-flight');
+// const removeFlightButton = document.querySelector('.remove-new-flight');
+// const bookFlightButton = document.querySelector('.book-flight');
+const roundTripRadio = document.getElementById('round-trip');
+const inputBox11 = document.querySelector('.inputBox11');
+const oneWayRadio = document.getElementById('one-way');
+
+function toggleInputBox11() {
+  if (roundTripRadio.checked) {
+    inputBox11.style.display = 'block';
+  } else {
+    inputBox11.style.display = 'none';
+  }
+}
+
+function handleRadioClick(event) {
+  if (event.target !== roundTripRadio) {
+    inputBox11.style.display = 'none';
+  }
+}
+
+// function toggleExtraSection() {
+//   if (multiCitiesRadio.checked) {
+//     extraSection.style.display = 'block';
+//     extraSection1.style.display = 'block';
+//     addFlightButton.style.display = 'block';
+//     extraSection1.style.display = 'grid'; // Show extra-section1
+//   } else {
+//     extraSection.style.display = 'none';
+//     extraSection1.style.display = 'none';
+//     addFlightButton.style.display = 'none';
+//   }
+// }
+
+// extraSection1.style.display = 'none'; 
+
+// multiCitiesRadio.addEventListener('click', toggleExtraSection);
+roundTripRadio.addEventListener('click', toggleInputBox11);
+oneWayRadio.addEventListener('click', handleRadioClick);
+
+
+
+// const radioButtons = document.querySelectorAll('.trip-details input[type="radio"]');
+// radioButtons.forEach(function(radioButton) {
+//   radioButton.addEventListener('click', handleRadioClick);
+// });
+
+// let cloneCounter = 1;
+
+// addFlightButton.addEventListener('click', function() {
+//   const clonedExtraSection = extraSection.cloneNode(true);
+//   const clonedSelects = clonedExtraSection.querySelectorAll('select');
+//   const clonedCalendar = clonedExtraSection.querySelector('input[type="date"]');
+
+//   clonedSelects.forEach(function(select) {
+//     select.addEventListener('change', function(event) {
+//       const selectedValues = Array.from(clonedSelects).map(select => select.value);
+//       const calendarValue = clonedCalendar.value;
+//       const cloneIndex = Array.from(extraSection.parentNode.children).indexOf(clonedExtraSection);
+//       console.log(`Clone ${cloneIndex + 1} value: ${selectedValues.join(', ')}`);
+//       console.log(`Clone ${cloneIndex + 1} calendar value: ${calendarValue}`);
+//     });
+//   });
+
+//   extraSection.parentNode.insertBefore(clonedExtraSection, extraSection.nextSibling);
+//   cloneCounter++;
+// });
+
+
+
+// removeFlightButton.addEventListener('click', function() {
+//   const clonedExtraSections = document.querySelectorAll('.extra-section');
+
+//   if (clonedExtraSections.length > 1) { // Check if there is more than one cloned extra-section
+//     const lastClonedExtraSection = clonedExtraSections[clonedExtraSections.length - 1];
+//     lastClonedExtraSection.remove();
+//     cloneCounter--;
+//   }
+// });
+
+// bookFlightButton.addEventListener('click', function() {
+//   console.log(`Clone ${cloneCounter}`);
+//   const clonedSections = document.querySelectorAll('.extra-section');
+//   clonedSections.forEach(function(section, index) {
+//     const clonedSelects = section.querySelectorAll('select');
+//     const selectedValues = Array.from(clonedSelects).map(select => select.value);
+//     console.log(`Clone ${index + 1} values: ${selectedValues.join(', ')}`);
+//   });
+// });
+
+</script>
+
+<script>
+  const daysTag = document.querySelector(".days"),
+currentDate = document.querySelector(".current-date"),
+prevNextIcon = document.querySelectorAll(".icons span");
+
+// getting new date, current year and month
+let date = new Date(),
+currYear = date.getFullYear(),
+currMonth = date.getMonth();
+
+// storing full name of all months in array
+const months = ["January", "February", "March", "April", "May", "June", "July",
+              "August", "September", "October", "November", "December"];
+
+const renderCalendar = () => {
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+    lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+    lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+    let liTag = "";
+
+    for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+        liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+    }
+
+    for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+        // adding active class to li if the current day, month, and year matched
+        let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
+                     && currYear === new Date().getFullYear() ? "active" : "";
+        liTag += `<li class="${isToday}">${i}</li>`;
+    }
+
+    for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+    }
+    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+    daysTag.innerHTML = liTag;
+}
+renderCalendar();
+
+prevNextIcon.forEach(icon => { // getting prev and next icons
+    icon.addEventListener("click", () => { // adding click event on both icons
+        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+        currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+        if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+            // creating a new date of current year & month and pass it as date value
+            date = new Date(currYear, currMonth, new Date().getDate());
+            currYear = date.getFullYear(); // updating current year with new date year
+            currMonth = date.getMonth(); // updating current month with new date month
+        } else {
+            date = new Date(); // pass the current date as date value
+        }
+        renderCalendar(); // calling renderCalendar function
+    });
+});  
+</script>
+
+<script>
+  const videoPlayer = document.getElementById("videoPlayer");
+const videoSources = [
+  "/videos/video1.mp4",
+  "/videos/video2.mp4",
+  "/videos/video3.mp4"
+];
+let currentVideoIndex = 0;
+let playCount = 0;
+
+function playNextVideo() {
+  videoPlayer.src = videoSources[currentVideoIndex];
+  videoPlayer.play();
+  
+  videoPlayer.addEventListener("ended", function() {
+    playCount++;
+    
+    if (playCount < 2) {
+      // Repeat the same video
+      videoPlayer.play();
+    } else {
+      playCount = 0;
+      currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
+      videoPlayer.src = videoSources[currentVideoIndex];
+      videoPlayer.play();
+    }
+  });
+}
+
+playNextVideo();
+</script>
+
+</body>
+</html>
