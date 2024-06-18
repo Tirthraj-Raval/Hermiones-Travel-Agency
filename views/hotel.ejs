@@ -1,0 +1,167 @@
+<%- include("partials/header", {isHotelPage : false}); -%>
+
+<section class="hotel" id="hotel" style="margin-top: 50px;">
+    <% if (user && user.role === 'admin') { %>
+        <div class="admin-buttons">
+          <a href="/allhotels/<%= hotel._id %>/edit" class="btn btn-primary">Edit Post</a>
+          <form action="/allhotels/<%= hotel._id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            <button type="submit" class="btn btn-danger">Delete Post</button>
+          </form>
+        </div>
+      <% } %>
+
+  <div class="heading" style="margin-top : 50px;">
+    <span>Hotel Details</span>
+    <h1 style="font-size: 5rem;"><%= hotel.name %></h1>
+  </div>
+
+  <div class="swiper slider">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="<%=hotel.firstImg%>" class="firstImg" alt="<%=hotel.name%>">
+            <% hotel.images.forEach(function(image){ %>
+        </div>
+        <div class="swiper-slide">
+            <img src="<%=image%>" alt="<%=hotel.name%>">
+            <% }); %>
+        </div>
+    </div>
+  </div>
+
+  <div class="content3" data-aos="fade-up" data-aos-delay="300">
+    <div class="price"><span class="line">$ <%= parseInt(hotel.pricePerNight) + 200 %></span> $ <%=hotel.pricePerNight%> <span class="night">/night </span></div>
+    <% if(!user) { %>
+      <a href="/login" class="btn btn-primary">Book Now</a>
+    <% } %>
+    <% if (user && (user.role === 'user' || user.role === 'admin')) { %>
+        <% if (!user.bookedHotels.some(booking => booking.hotel.toString() === hotel._id.toString())) { %>
+          <form action="/allhotels/<%= hotel._id %>/bookhotel" method="get">
+            <button type="submit" class="btn btn-primary">Book Now</button>
+          </form>
+        <% } %>
+ </div>
+ 
+
+  <div class="pricing">
+    <div class="box-container">
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
+            <h3>List of Amenities</h3>
+            <ul>
+               <% hotel.amenities.forEach(function(amenity){ %>
+                    <li><%= amenity%></li>
+               <% }); %>
+            <li>Hotel Location : <span> <%=hotel.location%></span></li>
+            <li>Price Per Night for hotel :<span> <%=hotel.pricePerNight%></span></li>
+            <li>Number of Available Rooms :<span> <%=hotel.availableRooms%></span></li>
+            <li>Total Rooms in hotel :<span> <%=hotel.totalRooms%></span></li>
+            <li>Rating for hotel :<span style="color : var(--orange);">
+                <% const fullStars = Math.floor(hotel.rating); %>
+                <% const halfStar = hotel.rating % 1 !== 0; %>
+                <% const emptyStars = 5 - Math.ceil(hotel.rating); %>
+                <% for (let i = 0; i < fullStars; i++) { %>
+                  <i class="fas fa-star"></i>
+                <% } %>
+                <% if (halfStar) { %>
+                  <i class="fas fa-star-half-alt"></i>
+                <% } %>
+                <% for (let i = 0; i < emptyStars; i++) { %>
+                  <i class="far fa-star"></i>
+                <% } %>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="box" data-aos="fade-up" data-aos-delay="300">
+        <h3>Property Rules</h3>
+        <ul>
+          <li><i class="fas fa-clock" id="clock"></i>Check-in: After 12:00 PM, Check-out: 11:00 AM</li>
+          <li><i class="fas fa-user-slash" id="clock"></i>Unmarried Couples not Allowed</li>
+          <li><i class="fas fa-ban" id="clock"></i>Guests below not allowed</li>
+          <li><i class="fa-solid fa-champagne-glasses" id="clock"></i>Alcohol consumption allowed</li>
+          <li><i class="fa-solid fa-ban" id="clock"></i>Pets Not Allowed</li>
+        </ul>
+    </div>
+    <div class="box" data-aos="fade-up" data-aos-delay="450">
+      <h3 >Description</h3>
+      <div class="paddd">
+       <p ><%= hotel.description %></p>
+    </div>
+    </div>
+    </div>
+
+    <div class="admin-buttons2" data-aos="fade-up" data-aos-delay="300">
+      <% user.bookedHotels.forEach(function(bookedHotel) { %>
+        <% if (bookedHotel.hotel.toString() === hotel._id.toString()) { %>
+          <% if (bookedHotel.ticketPath) { %>
+            <a href="/allhotels/<%= hotel._id %>/download-ticket/<%= bookedHotel._id %>" download class="btn btn-primary">Download Ticket</a>
+          <% } %>
+          <form action="/allhotels/<%= hotel._id %>/cancelbooking/<%=bookedHotel._id%>" method="POST" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+            <button type="submit" class="btn btn-danger">Cancel Booking</button>
+          </form>
+        <% } %>
+      <% }); %>
+    <% } %>
+    </div>
+
+    
+          <% if(!user) { %>
+            <div class="pricing">
+              <div class="box-container">
+                  <div class="box" data-aos="fade-up" data-aos-delay="150">
+                      <h3>List of Amenities</h3>
+                      <ul>
+                         <% hotel.amenities.forEach(function(amenity){ %>
+                              <li><%= amenity%></li>
+                         <% }); %>
+                      <li>Hotel Location : <span> <%=hotel.location%></span></li>
+                      <li>Price Per Night for hotel :<span> <%=hotel.pricePerNight%></span></li>
+                      <li>Number of Available Rooms :<span> <%=hotel.availableRooms%></span></li>
+                      <li>Total Rooms in hotel :<span> <%=hotel.totalRooms%></span></li>
+                      <li>Rating for hotel :<span>
+                          <% const fullStars = Math.floor(hotel.rating); %>
+                          <% const halfStar = hotel.rating % 1 !== 0; %>
+                          <% const emptyStars = 5 - Math.ceil(hotel.rating); %>
+                          <% for (let i = 0; i < fullStars; i++) { %>
+                            <i class="fas fa-star"></i>
+                          <% } %>
+                          <% if (halfStar) { %>
+                            <i class="fas fa-star-half-alt"></i>
+                          <% } %>
+                          <% for (let i = 0; i < emptyStars; i++) { %>
+                            <i class="far fa-star"></i>
+                          <% } %>
+                          </span>
+                      </li>
+                  </ul>
+              </div>
+              <div class="box" data-aos="fade-up" data-aos-delay="300">
+                <h3>Property Rules</h3>
+                <ul>
+                  <li><i class="fas fa-clock" id="clock"></i>Check-in: After 12:00 PM, Check-out: 11:00 AM</li>
+                  <li><i class="fas fa-user-slash" id="clock"></i>Unmarried Couples not Allowed</li>
+                  <li><i class="fas fa-ban" id="clock"></i>Guests below not allowed</li>
+                  <li><i class="fa-solid fa-champagne-glasses" id="clock"></i>Alcohol consumption allowed</li>
+                  <li><i class="fa-solid fa-ban" id="clock"></i>Pets Not Allowed</li>
+                </ul>
+              </div>
+              <div class="box" data-aos="fade-up" data-aos-delay="450">
+                 <h3 >Description</h3>
+                 <div class="paddd">
+                  <p ><%= hotel.description %></p>
+                 </div>
+              </div>
+              </div>
+              </div>
+            <% } %>
+
+          <div class="tp" data-aos="fade-up" data-aos-delay="150">
+            <a href="/allhotels"><i class="fas fa-angle-left"></i>Back to All Hotels</a>
+          </div>
+
+        </div>
+    </div>
+  </div>
+</section>
+<div class="space" style="margin-top: 20rem;"></div>
+
+<%- include("partials/footer"); -%>
