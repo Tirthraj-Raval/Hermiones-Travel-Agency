@@ -1266,8 +1266,8 @@ app.post("/allflights/:flightId/bookflight/paypal", isAuthenticated, async funct
           payment_method: "paypal",
         },
         redirect_urls: {
-          return_url: `https://hermiones-travel-agency.onrender.com/allflights/${flightId}/bookflight/paypal/success` || `http://localhost:3000/allflights/${flightId}/bookflight/paypal/success`,
-          cancel_url: `https://hermiones-travel-agency.onrender.com/allflights/${flightId}/bookflight/paypal/success` || `http://localhost:3000/allflights/${flightId}/bookflight/paypal/cancel`,
+          return_url: `https://hermiones-travel-agency.onrender.com//allflights/${flightId}/bookflight/paypal/success` || '/',
+          cancel_url: `https://hermiones-travel-agency.onrender.com//allflights/${flightId}/bookflight/paypal/cancel` || '/',
         },
         transactions: [
           {
@@ -1329,7 +1329,7 @@ app.post("/allflights/:flightId/bookflight/paypal", isAuthenticated, async funct
 app.get("/allflights/:flightId/bookflight/paypal/cancel", function(req,res){
   const flightId = req.params.flightId;
 
-  res.redirect(`/allflights/${flightID}`);
+  res.redirect(`/allflights/${flightId}`);
 });
 
 
