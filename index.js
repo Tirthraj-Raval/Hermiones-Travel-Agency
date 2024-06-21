@@ -184,7 +184,7 @@ const usersSchema = new mongoose.Schema({
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/secrets",
+    callbackURL: "https://hermiones-travel-agency.onrender.com/auth/facebook/secrets",
     profileFields: ['id', 'displayName'] // Adjust the profile fields as needed
   },
   function(accessToken, refreshToken, profile, cb) {
