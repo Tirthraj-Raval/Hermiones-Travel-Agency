@@ -8,6 +8,10 @@
             <% if(user && user.role === "user") { %>
                 <% if(user.googleId) { %>
                   <span id="text1" style="font-family:'Harry Potter Regular';font-weight:normal;" data-aos="fade-up" data-aos-delay="300">Welcome, <%= user.googleDisplayName %></span>
+                  
+                <% } else if (user.facebookId) { %>
+                  <span id="text1" style="font-family:'Harry Potter Regular';font-weight:normal;" data-aos="fade-up" data-aos-delay="300">Welcome, <%= user.facebookDisplayName %></span>
+
                 <% } else { %>
                   <span id="text1" data-aos="fade-up" data-aos-delay="300">Welcome, <%= user.name %></span>
                   <% } %>
